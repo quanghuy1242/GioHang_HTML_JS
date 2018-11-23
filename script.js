@@ -100,7 +100,15 @@ function renderDanhSachSanPhamtoCart(item, danhSachDich) {
 
   tdInput.appendChild(inputQuantity);
 
-  sanPham.append(stt, tensp, giasp, tdInput);
+  let btnxoatd = document.createElement('td');
+  let btnxoa = document.createElement('button');
+  let btnxoaText = document.createTextNode('Xoá');
+  btnxoa.appendChild(btnxoaText);
+  btnxoa.className = 'btn btnXoa';
+  btnxoa.setAttribute('onclick', 'xoaSanPham(this)')
+  btnxoatd.appendChild(btnxoa);
+
+  sanPham.append(stt, tensp, giasp, tdInput, btnxoatd);
   danhSachDich.appendChild(sanPham);
 }
 
@@ -143,4 +151,20 @@ document.querySelector('#thanhToan').addEventListener('click', () => {
   }
   document.querySelector('#thanhTien').innerHTML = sum;
 });
+
+// Xoá 1 sản phẩm
+function xoaSanPham(e) {
+  // Lấy mã sản phẩm
+  // let maspcanxoa = e.path[2].childNodes[0].innerHTML;
+  let maspcanxoa = e.parentElement.parentElement.childNodes[0].innerHTML;
+  cart = cart.filter(item => item.id !== parseInt(maspcanxoa))
+
+  // Render lại ds
+  danhSachSanPhamCart.innerHTML = '';
+  for (let item of cart) {
+    renderDanhSachSanPhamtoCart(item, danhSachSanPhamCart);
+  }
+  console.log();
+}
+
 /* end Main */
