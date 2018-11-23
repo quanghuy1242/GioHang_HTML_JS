@@ -95,7 +95,9 @@ function renderDanhSachSanPhamtoCart(item, danhSachDich) {
 
   let inputQuantity = document.createElement('input');
   inputQuantity.setAttribute('type', 'number');
-  inputQuantity.setAttribute('value', 1);
+  inputQuantity.setAttribute('value', item.soLuong);
+  inputQuantity.setAttribute('min', 1);
+  inputQuantity.setAttribute('onchange', 'changeQuantityInCart(this)')
   inputQuantity.className = "soLuong form-control";
 
   tdInput.appendChild(inputQuantity);
@@ -124,6 +126,8 @@ document.querySelectorAll('.addToCart').forEach(item => {
 
     if (typeof(daTonTai) === 'undefined') {
       let sanPhamDuocChon = danhSachSanPham.find((i) => i.id.toString() === masp);
+
+      sanPhamDuocChon.soLuong = 1;
       cart.push(sanPhamDuocChon);
       
       document.querySelector('#tongsp').innerHTML = '(' + cart.length + ')';
@@ -142,11 +146,6 @@ document.querySelectorAll('.addToCart').forEach(item => {
 document.querySelector('#thanhToan').addEventListener('click', () => {
   let sum = 0;
   for(let item of cart) {
-    document.querySelectorAll('.cart tr').forEach(i => {
-      if (i.childNodes[0].innerHTML === item.id.toString()) {
-        item.soLuong = i.childNodes[3].childNodes[0].value;
-      }
-    });
     sum += parseInt(item.price) * parseInt(item.soLuong);
   }
   document.querySelector('#thanhTien').innerHTML = sum;
@@ -164,7 +163,12 @@ function xoaSanPham(e) {
   for (let item of cart) {
     renderDanhSachSanPhamtoCart(item, danhSachSanPhamCart);
   }
+  // Render lại số lượng sản phẩm trong giỏ
   document.querySelector('#tongsp').innerHTML = '(' + cart.length + ')';
 }
 
+function changeQuantityInCart(e) {
+  let maspduocclick = e.parentElement.parentElement.childNodes[0].innerHTML;
+  cart.find(i => maspduocclick === i.id.toString()).soLuong = e.value;
+}
 /* end Main */
