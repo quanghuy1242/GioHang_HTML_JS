@@ -1,4 +1,4 @@
-let danhSachSanPhamUl = document.querySelector('.danhSachSanPham');
+﻿let danhSachSanPhamUl = document.querySelector('.danhSachSanPham');
 let danhSachSanPhamCart = document.querySelector('.cart');
 let danhSachSanPham = [{
     id: 1,
@@ -164,7 +164,7 @@ function xoaSanPham(e) {
   for (let item of cart) {
     renderDanhSachSanPhamtoCart(item, danhSachSanPhamCart);
   }
-  console.log();
+  document.querySelector('#tongsp').innerHTML = '(' + cart.length + ')';
 }
 
 /* end Main */
