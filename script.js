@@ -121,7 +121,7 @@ for(let item of danhSachSanPham) {
 
 document.querySelectorAll('.addToCart').forEach(item => {
   item.addEventListener('click', (e) => {
-    let masp = e.path[2].querySelector('.stt').innerHTML;
+    let masp = e.target.parentNode.parentNode.querySelector(".stt").innerHTML;
     let daTonTai = cart.find((item) => item.id.toString() === masp);
 
     if (typeof(daTonTai) === 'undefined') {
